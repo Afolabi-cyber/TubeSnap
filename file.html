@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free AI YouTube Video Summarizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+        }
+
+        header, footer, section, .buy-coffee, .bottom-section {
+            padding: 40px 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a1a;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .button-primary {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero {
+            text-align: center;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .hero input {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 20px;
+        }
+
+        .hero button {
+            margin-left: 10px;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* adjust the spacing as needed */
+        }
+
+        .logo-text img {
+            height: 40px; /* adjust logo size */
+        }
+
+        .logo-text span {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .accordion {
+            background: #1e1e1e;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            outline: none;
+            text-align: left;
+            transition: 0.4s;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .accordion-content {
+            padding: 0 10px;
+            display: none;
+            background: #252525;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: #1a1a1a;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info div {
+            margin-bottom: 5px;
+        }
+
+        .buy-coffee {
+            text-align: center;
+        }
+
+        .buy-coffee button {
+            background: #ff5f5f;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .buy-coffee button:hover {
+            background: #e04e4e;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .hero input {
+                width: 80%;
+            }
+
+            .bottom-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-text">
+            <img src="TubeSnap.jpg" alt="TubeSnap Logo" style="height: 40px;">
+            <span>TubeSnap Products</span>
+        </div>
+        
+        <nav>
+            <a href="#">Tools</a>
+            <a href="#">Use Cases</a>
+            <a href="#">Tutorial</a>
+            <a href="#">Affiliate Program</a>
+            <a href="#">About</a>
+            <a href="#">Login</a>
+            <button class="button-primary">Try For Free</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Free AI YouTube Video Summarizer</h1>
+        <p>Enter any YouTube video link to get an instant AI-generated summary of key points and insights.</p>
+        <input type="text" placeholder="Paste Your YouTube Link Here">
+        <button class="button-primary">Summarize <i class="fas fa-arrow-down"></i></button>
+        <p style="margin-top: 10px;">Save your screen hours by summarizing YouTube videos here!</p>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How to Summarize YouTube Videos</h2>
+        <div class="grid">
+            <div class="card">
+                <p>Step 1: Input your topic...</p>
+                <button class="button-primary">+ Generate</button>
+            </div>
+            <div class="card">
+                <p>Step 2: AI-Powered Summary - Refine with additional prompts.</p>
+            </div>
+            <div class="card">
+                <p>Step 3: Export and Share</p>
+                <p>Save the summary or share it online.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose">
+        <h2>Why choose TubeSnap Free AI YouTube Summarizer?</h2>
+        <div class="grid">
+            <div class="card">AI-Native</div>
+            <div class="card">Multiple Formats</div>
+            <div class="card">Web Search</div>
+            <div class="card">Internet Access</div>
+            <div class="card">Collaboration</div>
+            <div class="card">Share & Export</div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2>Use Cases for Free AI YouTube Video Summarizer</h2>
+        <div class="grid">
+            <div class="card">Students: Efficient Lecture Review <button class="button-primary">Try For Free</button></div>
+            <div class="card">Professionals: Rapid Industry Insights <button class="button-primary">Try For Free</button></div>
+            <div class="card">Content Creators: Streamlined Research <button class="button-primary">Try For Free</button></div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2>FAQs about Free AI YouTube Summarizer</h2>
+        <button class="accordion">What is the Free AI YouTube Summarizer?</button>
+        <div class="accordion-content"><p>It generates concise summaries of YouTube videos using AI.</p></div>
+        <button class="accordion">Is the Free AI YouTube Summarizer really free?</button>
+        <div class="accordion-content"><p>Yes, it's 100% free.</p></div>
+    </section>
+
+    <div class="buy-coffee">
+        <button>☕ Buy Me a Coffee</button>
+    </div>
+
+    <footer>
+        <div>
+            <h4>Tools</h4>
+            <p>Mindmap</p>
+            <p>PDF Summarizer</p>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>Contact Us</p>
+            <p>Refund Policy</p>
+        </div>
+        <div>
+            <h4>Partner</h4>
+            <p>PDF Translator</p>
+        </div>
+        <div>
+            <h4>Company</h4>
+            <p>Affiliate Program</p>
+            <p>Privacy Policy</p>
+        </div>
+    </footer>
+
+    <div class="bottom-section">
+        <div class="contact-info">
+            <div>Email: afolaifaruq23@gmail.com</div>
+            <div>LinkedIn: <a href="https://www.linkedin.com/in/faruq-afolabi-819068225/" target="_blank">Faruq-Afolabi</a></div>
+            <div>Contact: +2347067984484</div>
+        </div>
+        <div>© TubeSnap</div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+
+</html>

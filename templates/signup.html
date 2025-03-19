@@ -1,0 +1,36 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form class="form" method="POST">
+        <div class="control">
+            <h1>Sign Up</h1>
+        </div>
+        <div class="control block-cube block-input">
+            <input type="email" name="email" placeholder="Email" required>
+            <div class="bg-top"><div class="bg-inner"></div></div>
+            <div class="bg-right"><div class="bg-inner"></div></div>
+            <div class="bg"><div class="bg-inner"></div></div>
+        </div>
+        <div class="control block-cube block-input">
+            <input type="password" name="password" placeholder="Password" required>
+            <div class="bg-top"><div class="bg-inner"></div></div>
+            <div class="bg-right"><div class="bg-inner"></div></div>
+            <div class="bg"><div class="bg-inner"></div></div>
+        </div>
+        <button class="btn block-cube block-cube-hover" type="submit">
+            <div class="bg-top"><div class="bg-inner"></div></div>
+            <div class="bg-right"><div class="bg-inner"></div></div>
+            <div class="bg"><div class="bg-inner"></div></div>
+            <div class="text">Sign Up</div>
+        </button>
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </form>
+</body>
+</html>

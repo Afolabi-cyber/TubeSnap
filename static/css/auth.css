@@ -1,0 +1,176 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #212121;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    font-size: 23px;
+    text-align: center;
+}
+
+.form {
+    width: 300px;
+    padding: 64px 15px 24px;
+    margin: 0 auto;
+}
+
+.control {
+    margin: 0 0 24px;
+    position: relative;
+}
+
+.control input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    color: #fff;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+    font-size: 16px;
+    position: relative;
+    z-index: 3;
+}
+
+.control input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
+.control input:focus {
+    border: 1px solid rgba(0, 212, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    display: block;
+    padding: 14px 16px;
+    background: transparent;
+    outline: none;
+    border: 0;
+    color: #fff;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* BLOCK CUBE EFFECT */
+.block-cube {
+    position: relative;
+}
+
+.block-cube .bg-top {
+    position: absolute;
+    height: 10px;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(52,9,121,1) 37%, rgba(0,212,255,1) 94%);
+    bottom: 100%;
+    left: 5px;
+    right: -5px;
+    transform: skew(-45deg, 0);
+    margin: 0;
+    z-index: 1;
+}
+
+.block-cube .bg-top .bg-inner,
+.block-cube .bg-right .bg-inner,
+.block-cube .bg .bg-inner {
+    background: #212121;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+.block-cube .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(52,9,121,1) 37%, rgba(0,212,255,1) 94%);
+    z-index: 0;
+}
+
+.block-cube .bg-right {
+    position: absolute;
+    background: rgba(0,212,255,1);
+    top: -5px;
+    bottom: 5px;
+    width: 10px;
+    left: 100%;
+    transform: skew(0, -45deg);
+    z-index: 1;
+}
+
+.block-cube .text {
+    position: relative;
+    z-index: 2;
+}
+
+/* Hover + Focus States */
+.block-cube.block-input input:focus ~ .bg-right .bg-inner,
+.block-cube.block-input input:focus ~ .bg-top .bg-inner {
+    top: 100%;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.block-cube.block-input:hover .bg-top,
+.block-cube.block-input:hover .bg-right,
+.block-cube.block-input:hover .bg {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.block-cube-hover:hover .bg .bg-inner,
+.block-cube-hover:focus .bg .bg-inner {
+    top: 100%;
+}
+
+/* Toggle Password Icon */
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 4;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.toggle-password:hover {
+    color: rgba(0, 212, 255, 0.9);
+}
+
+/* SUCCESS MODAL */
+.success-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4caf50;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translate(-50%, -60%); }
+    100% { opacity: 1; transform: translate(-50%, -50%); }
+}
