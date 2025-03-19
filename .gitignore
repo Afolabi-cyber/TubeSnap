@@ -16,3 +16,5 @@ __pycache__/
 
 # Optional: logs
 *.log
+*.json
+summarizer-5d94a-firebase-adminsdk-fbsvc-a1af90cd4a.json
