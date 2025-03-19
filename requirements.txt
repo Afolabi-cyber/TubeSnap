@@ -8,3 +8,4 @@ groq
 bcrypt
 python-dotenv
 youtube-transcript-api
+gunicorn
