@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import json
 from groq import Groq
 import bcrypt
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
@@ -21,8 +22,12 @@ cred_path = os.getenv("FIREBASE_CREDENTIALS")
 if not cred_path:
     raise ValueError("FIREBASE_CREDENTIALS environment variable not set")
 
-cred = credentials.Certificate(cred_path)
+firebase_creds_dict = json.loads(cred_path)
+
+cred = credentials.Certificate(firebase_creds_dict)
 firebase_admin.initialize_app(cred)
+# cred = credentials.Certificate(cred_path)
+# firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Groq API Key
@@ -59,7 +64,8 @@ def summarize_with_groq(text):
                 {"role": "system", "content": "Summarize the given transcript clearly and concisely."},
                 {"role": "user", "content": text}
         ],
-        model="llama-3.3-70b-versatile",
+        #model="llama-3.3-70b-versatile",
+        model="gemma2-9b-it",
     )
 
     return chat_completion.choices[0].message.content
@@ -74,12 +80,15 @@ def index():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    message = None  # Initialize message
+
     if request.method == "POST":
         email = request.form.get("email") or request.json.get("email")
         password = request.form.get("password") or request.json.get("password")
 
         if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
+            message = "Email and password are required"
+            return render_template("signup.html", message=message)
 
         hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
@@ -88,28 +97,35 @@ def signup():
             db.collection("users").document(user.uid).set({"email": email, "password": hashed_pw})
             session['user'] = email
             return redirect(url_for('index'))
+        except auth.EmailAlreadyExistsError:  # Firebase specific error for email duplication
+            message = "Account already exists, proceed to Login"
         except Exception as e:
-            return jsonify({"error": str(e)}), 400
+            if "EMAIL_EXISTS" in str(e):
+                message = "Account already exists, proceed to Login"
+            else:
+                message = f"Error: {str(e)}"
 
-    session['message'] = "Signed up successfully!"
-    # return redirect(url_for('index'))
-    return render_template("signup.html")
+    return render_template("signup.html", message=message)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    message = None  # Initialize message
+
     if request.method == "POST":
         email = request.form.get("email") or request.json.get("email")
         password = request.form.get("password") or request.json.get("password")
 
         if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
+            message = "Email and password are required"
+            return render_template("login.html", message=message)
 
         try:
             user_record = auth.get_user_by_email(email)
             user_doc = db.collection("users").document(user_record.uid).get()
 
             if not user_doc.exists:
-                return jsonify({"error": "User not found"}), 404
+                message = "User not found"
+                return render_template("login.html", message=message)
 
             user_data = user_doc.to_dict()
             stored_password = user_data['password'].encode('utf-8')
@@ -118,16 +134,18 @@ def login():
                 session['user'] = email
                 return redirect(url_for('index'))
             
-            return jsonify({"error": "Invalid credentials"}), 401
+            message = "Invalid credentials"
+            return render_template("login.html", message=message)
+        
         except auth.UserNotFoundError:
-            return jsonify({"error": "User not found"}), 404
+            message = "User not found"
+            return render_template("login.html", message=message)
         except Exception as e:
-            return jsonify({"error": str(e)}), 500
+            message = f"Error: {str(e)}"
+            return render_template("login.html", message=message)
 
-    session['message'] = "Logged in successfully!"
-    # return redirect(url_for('index'))
-    
-    return render_template("login.html")
+    return render_template("login.html", message=message)
+
 
 @app.route("/logout")
 def logout():
@@ -143,14 +161,47 @@ def summarize():
     video_url = data.get("video_url")
     if not video_url:
         return jsonify({"error": "No video URL provided."}), 400
-    
+
     transcript = get_youtube_transcript(video_url)
     if "Error" in transcript or transcript == "Invalid YouTube URL":
         return jsonify({"error": transcript}), 400
-    
-    summary = summarize_with_groq(transcript)
-    db.collection("summaries").add({"user": session['user'], "video_url": video_url, "summary": summary})
-    return jsonify({"summary": summary})
+
+    # Token-safe chunking (approximate split by words)
+    def chunk_text(text, max_words=700):  # Roughly 4500 tokens ≈ 700-800 words depending on the transcript
+        words = text.split()
+        return [" ".join(words[i:i + max_words]) for i in range(0, len(words), max_words)]
+
+    chunks = chunk_text(transcript)
+    client = Groq(api_key=GROQ_API_KEY)
+    chunk_summaries = []
+
+    # Step 1: Summarize each chunk individually
+    for idx, chunk in enumerate(chunks):
+        response = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "Summarize the following transcript chunk clearly and concisely."},
+                {"role": "user", "content": chunk}
+            ],
+            model="llama-3.1-8b-instant",
+        )
+        chunk_summary = response.choices[0].message.content
+        chunk_summaries.append(chunk_summary)
+
+    # Step 2: Meta-summary from chunk summaries
+    combined_summaries = "\n\n".join(chunk_summaries)
+    final_response = client.chat.completions.create(
+        messages=[
+            {"role": "system", "content": "Create a final coherent summary from these smaller summaries."},
+            {"role": "user", "content": combined_summaries}
+        ],
+        model="llama-3.1-8b-instant",
+    )
+    final_summary = final_response.choices[0].message.content
+
+    # Step 3: Save to Firestore
+    db.collection("summaries").add({"user": session['user'], "video_url": video_url, "summary": final_summary})
+    return jsonify({"summary": final_summary})
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
