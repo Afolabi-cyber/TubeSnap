@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # YouTube Summarizer
 
 ## Overview
@@ -70,5 +69,4 @@ This project is licensed under the MIT License.
 =======
 # TubeSnap
 This App takes a YouTube URL and returns the summary of the YOUTUBE video. 
->>>>>>> 8283654cd76270cc61371af5f5d9d95f71cc3df6
 
