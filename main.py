@@ -193,7 +193,7 @@ def summarize():
             {"role": "system", "content": "Create a final coherent summary from these smaller summaries."},
             {"role": "user", "content": combined_summaries}
         ],
-        model="llama-3.1-8b-instant",
+        model="llama3-8b-8192",
     )
     final_summary = final_response.choices[0].message.content
 
