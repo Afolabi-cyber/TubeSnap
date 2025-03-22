@@ -9,9 +9,6 @@ import firebase_admin
 from firebase_admin import credentials, auth, firestore
 from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
-import time
-from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound, HTTPError
-
 
 # Load environment variables
 load_dotenv()
@@ -44,46 +41,17 @@ def extract_video_id(video_url):
         return video_url.split("youtu.be/")[-1].split("?")[0]
     return None
 
-# def get_youtube_transcript(video_url):
-#     """Fetches the transcript for the given YouTube video URL."""
-#     video_id = extract_video_id(video_url)
-#     if not video_id:
-#         return "Invalid YouTube URL"
-#     try:
-#         transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-#         transcript = " ".join([entry["text"] for entry in transcript_list])
-#         return transcript
-#     except Exception as e:
-#         return str(e)
-
 def get_youtube_transcript(video_url):
-    """Fetches the transcript for the given YouTube video URL with retry and 429 handling."""
+    """Fetches the transcript for the given YouTube video URL."""
     video_id = extract_video_id(video_url)
     if not video_id:
         return "Invalid YouTube URL"
-
-    retries = 3
-    backoff = 5  # initial wait in seconds
-
-    for attempt in range(retries):
-        try:
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-            transcript = " ".join([entry["text"] for entry in transcript_list])
-            return transcript
-        except HTTPError as e:
-            if e.status_code == 429:
-                if attempt < retries - 1:
-                    print(f"429 Too Many Requests. Retrying in {backoff} seconds...")
-                    time.sleep(backoff)
-                    backoff *= 2  # exponential backoff
-                else:
-                    return "YouTube is rate limiting. Please try again later."
-            else:
-                return f"HTTP Error {e.status_code}: {e.message}"
-        except (TranscriptsDisabled, NoTranscriptFound) as e:
-            return f"No transcript available for this video. {str(e)}"
-        except Exception as e:
-            return f"Unexpected error: {str(e)}"
+    try:
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+        transcript = " ".join([entry["text"] for entry in transcript_list])
+        return transcript
+    except Exception as e:
+        return str(e)
 
 def summarize_with_groq(text):
     """Sends the extracted transcript to Groq's API for summarization."""
