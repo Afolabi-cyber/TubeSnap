@@ -64,7 +64,6 @@ def summarize_with_groq(text):
                 {"role": "system", "content": "Summarize the given transcript clearly and concisely."},
                 {"role": "user", "content": text}
         ],
-        #model="llama-3.3-70b-versatile",
         model="gemma2-9b-it",
     )
 
