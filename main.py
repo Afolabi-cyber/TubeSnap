@@ -64,7 +64,7 @@ def summarize_with_groq(text):
                 {"role": "system", "content": "Summarize the given transcript clearly and concisely."},
                 {"role": "user", "content": text}
         ],
-        model="gemma2-9b-it",
+        model="mixtral-8x7b-32768",
     )
 
     return chat_completion.choices[0].message.content
