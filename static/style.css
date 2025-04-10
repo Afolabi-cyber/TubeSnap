@@ -1,7 +1,9 @@
-/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background: #0f0c34;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0e0e0e;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,62 +13,99 @@ body {
 
 /* Form Container */
 .form {
-    background: rgb(18, 27, 151);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
     width: 350px;
+    text-align: center;
+    border: 1px solid #ff0000;
 }
 
-/* Form Heading */
+/* Heading */
 h1 {
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff0000;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* Control Wrapper */
+.control {
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 /* Input Fields */
 input {
-    width: 90%;
+    width: 100%;
     padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    border: 1px solid #333;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #121212;
+    color: #fff;
+    transition: border 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ff0000;
+    background-color: #1c1c1c;
 }
 
 /* Submit Button */
 button {
-    background: #007BFF;
+    background: #ff0000;
     color: white;
     padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
     width: 100%;
-    transition: 0.3s;
+    border: none;
+    border-radius: 8px;
+    margin-top: 5px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-transform: uppercase;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #cc0000;
 }
 
-/* Links */
+/* Message and link section */
 p {
-    margin-top: 15px;
-    font-size: 14px;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #ccc;
 }
 
 a {
-    color: #007BFF;
+    color: #ff4d4d;
     text-decoration: none;
     font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #ff1a1a;
+}
+
+/* Alert message */
+.alert {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    background-color: #330000;
+    border: 1px solid #cc0000;
+    color: #ff4d4d;
+}
+.alert.success {
+    background-color: #003300;
+    border: 1px solid #00cc00;
+    color: #4dff4d;
 }
