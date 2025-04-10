@@ -196,9 +196,6 @@ def summarize():
         model="llama3-8b-8192",
     )
     final_summary = final_response.choices[0].message.content
-
-    # Step 3: Save to Firestore
-    db.collection("summaries").add({"user": session['user'], "video_url": video_url, "summary": final_summary})
     return jsonify({"summary": final_summary})
 
 
