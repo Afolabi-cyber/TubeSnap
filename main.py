@@ -146,11 +146,10 @@ def login():
 
     return render_template("login.html", message=message)
 
-
-@app.route("/logout")
+@app.route("/logout", endpoint="logout")
 def logout():
     session.pop('user', None)
-    return redirect(url_for('login'))
+    return redirect(url_for("login"))
 
 @app.route("/about")
 def about():
@@ -221,4 +220,4 @@ def summarize():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
