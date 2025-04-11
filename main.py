@@ -64,7 +64,8 @@ def summarize_with_groq(text):
                 {"role": "system", "content": "Summarize the given transcript clearly and concisely."},
                 {"role": "user", "content": text}
         ],
-        model="llama3-70b-8192",
+        #model="llama-3.3-70b-versatile",
+        model="gemma2-9b-it",
     )
 
     return chat_completion.choices[0].message.content
@@ -150,10 +151,6 @@ def login():
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
-@app.route("/logout")
-def logout():
-    session.pop('user', None)
-    return redirect(url_for('login'))
 
 @app.route("/about")
 def about():
@@ -170,6 +167,7 @@ def use_cases():
 @app.route("/affiliate")
 def affiliate():
     return render_template("affiliate.html")
+
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
@@ -213,11 +211,14 @@ def summarize():
             {"role": "system", "content": "Create a final coherent summary from these smaller summaries."},
             {"role": "user", "content": combined_summaries}
         ],
-        model="llama3-8b-8192",
+        model="llama-3.1-8b-instant",
     )
     final_summary = final_response.choices[0].message.content
+
+    # Step 3: Save to Firestore
+    # db.collection("summaries").add({"user": session['user'], "video_url": video_url, "summary": final_summary})
     return jsonify({"summary": final_summary})
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+    app.run(debug=True)
