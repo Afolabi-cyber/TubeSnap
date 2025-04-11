@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free AI YouTube Video Summarizer</title>
-    <link rel="icon" type="image/png" href="TubeSnap.jpg">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='TubeSnap.jpg') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
         body {
@@ -399,10 +399,10 @@
         </div>
         
         <nav>
-            <a href="#">Tools</a>
-            <a href="#">Use Cases</a>
-            <a href="#">Affiliate Program</a>
-            <a href="#">About</a>
+            <a href="{{ url_for('tools') }}">Tools</a>
+            <a href="{{ url_for('use_cases') }}">Use Cases</a>
+            <a href="{{ url_for('affiliate') }}">Affiliate Program</a>
+            <a href="{{ url_for('about') }}">About</a>
             {% if request.endpoint != 'login' %}
                 <a href="{{ url_for('login') }}" class="login-button">Login</a>
             {% endif %}
@@ -432,7 +432,9 @@
             <button type="submit" class="button-primary">Summarize <i class="fas fa-arrow-down"></i></button>
         </form>
         
-        <div id="loading" style="display: none;">Processing... Please wait.</div>
+        <div id="loading" style="display: none; text-align:center; margin-top: 20px;">
+            <i class="fas fa-spinner fa-spin"></i> Processing... Please wait.
+        </div>
     
         <!-- Summary output -->
         <div id="summary-container" class="summary-popup" style="display: none; position: relative;">
@@ -537,7 +539,13 @@
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.toggle('open');
         });
-
+        
+        sidebar.addEventListener('click', (event) => {
+            if (event.target.classList.contains('close-btn')) {
+                sidebar.classList.remove('open');
+            }
+        });
+        
         function toggleSidebar() {
             sidebar.classList.remove('open');
         }
@@ -574,11 +582,13 @@
         
 
         function copySummary() {
-            const text = document.getElementById("summary").innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                showSuccess("Summary copied!");
-            }).catch(err => {
-                alert("Failed to copy summary.");
+            const summaryText = document.getElementById("summary").innerText;
+            navigator.clipboard.writeText(summaryText).then(() => {
+                const success = document.createElement("div");
+                success.className = "success-message";
+                success.innerText = "Copied to clipboard!";
+                document.body.appendChild(success);
+                setTimeout(() => success.remove(), 2000);
             });
         }
     
