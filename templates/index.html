@@ -7,7 +7,7 @@
     <title>Free AI YouTube Video Summarizer</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='TubeSnap.jpg') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <style>
+    <style>
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -435,6 +435,7 @@
         <div id="loading" style="display: none; text-align:center; margin-top: 20px;">
             <i class="fas fa-spinner fa-spin"></i> Processing... Please wait.
         </div>
+        
     
         <!-- Summary output -->
         <div id="summary-container" class="summary-popup" style="display: none; position: relative;">
@@ -539,15 +540,13 @@
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.toggle('open');
         });
-        
         sidebar.addEventListener('click', (event) => {
             if (event.target.classList.contains('close-btn')) {
                 sidebar.classList.remove('open');
             }
         });
-        
         function toggleSidebar() {
-            sidebar.classList.remove('open');
+            sidebar.classList.toggle("open");
         }
 
 
@@ -591,6 +590,7 @@
                 setTimeout(() => success.remove(), 2000);
             });
         }
+
     
         function showSuccess(message) {
             const successDiv = document.createElement('div');
