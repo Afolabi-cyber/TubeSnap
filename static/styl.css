@@ -1,0 +1,107 @@
+/* styl.css - Unified Styling for About, Tools, Use Cases, Affiliate Pages */
+
+/* Base Reset & Theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #fdfdfd;
+    color: #333;
+    padding: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Header Section */
+  .header {
+    background: linear-gradient(135deg, #6c63ff, #a084ff);
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
+  
+  /* Main Container */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Paragraph Styling */
+  .container p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  
+  /* Section Titles */
+  .section {
+    margin-top: 2rem;
+  }
+  
+  .section h2 {
+    font-size: 1.9rem;
+    color: #6c63ff;
+    margin-bottom: 0.75rem;
+    border-left: 5px solid #a084ff;
+    padding-left: 12px;
+  }
+  
+  .section p {
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+  
+  /* CTA Buttons or Highlights (Optional) */
+  .button {
+    background: #6c63ff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background: #5848e5;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header h1 {
+      font-size: 2.2rem;
+    }
+  
+    .container {
+      padding: 1.2rem;
+    }
+  
+    .section h2 {
+      font-size: 1.5rem;
+    }
+  
+    .container p,
+    .section p {
+      font-size: 1rem;
+    }
+  }
+  
