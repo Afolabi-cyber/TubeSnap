@@ -150,6 +150,26 @@ def login():
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
+@app.route("/logout")
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/tools")
+def tools():
+    return render_template("tools.html")
+
+@app.route("/use-cases")
+def use_cases():
+    return render_template("use_cases.html")
+
+@app.route("/affiliate")
+def affiliate():
+    return render_template("affiliate.html")
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
